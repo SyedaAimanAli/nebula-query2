@@ -47,6 +47,16 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // NASA Theme Colors
+        nasa: {
+          blue: "hsl(var(--nasa-blue))",
+          "light-blue": "hsl(var(--nasa-light-blue))",
+          gray: "hsl(var(--space-gray))",
+        },
+        message: {
+          user: "hsl(var(--message-user))",
+          ai: "hsl(var(--message-ai))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
