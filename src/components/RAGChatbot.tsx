@@ -141,17 +141,17 @@ export function RAGChatbot() {
     <div className="h-screen flex flex-col bg-background">
       {/* Header */}
       <div className="border-b bg-card shadow-sm">
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-3">
-            <img src={nasaHero} alt="NASA" className="h-8 w-12 object-cover rounded" />
-            <h1 className="text-xl font-semibold text-foreground">NASA RAG Assistant</h1>
+        <div className="flex items-center justify-between p-3 md:p-4">
+          <div className="flex items-center gap-2 md:gap-3">
+            <img src={nasaHero} alt="NASA" className="h-6 w-8 md:h-8 md:w-12 object-cover rounded" />
+            <h1 className="text-lg md:text-xl font-semibold text-foreground">NASA RAG Assistant</h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 md:gap-2">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setActivePanel('documents')}
-              className={activePanel === 'documents' ? 'bg-primary text-primary-foreground' : ''}
+              className={`${activePanel === 'documents' ? 'bg-primary text-primary-foreground' : ''} hidden md:flex`}
             >
               <FileText className="h-4 w-4 mr-1" />
               Docs
@@ -160,11 +160,30 @@ export function RAGChatbot() {
               variant="outline"
               size="sm"
               onClick={() => setActivePanel('chart')}
-              className={activePanel === 'chart' ? 'bg-primary text-primary-foreground' : ''}
+              className={`${activePanel === 'chart' ? 'bg-primary text-primary-foreground' : ''} hidden md:flex`}
             >
               <BarChart3 className="h-4 w-4 mr-1" />
               Studies
             </Button>
+            {/* Mobile panel selector */}
+            <div className="flex md:hidden">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActivePanel('documents')}
+                className={activePanel === 'documents' ? 'bg-primary text-primary-foreground' : ''}
+              >
+                <FileText className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setActivePanel('chart')}
+                className={activePanel === 'chart' ? 'bg-primary text-primary-foreground' : ''}
+              >
+                <BarChart3 className="h-4 w-4" />
+              </Button>
+            </div>
             <Button
               variant="outline"
               size="sm"
@@ -176,12 +195,12 @@ export function RAGChatbot() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
+      {/* Main Content - Mobile First: Vertical Stack, Desktop: Horizontal Split */}
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {/* Chat Area */}
-        <div className="flex-1 flex flex-col">
-          <ScrollArea className="flex-1 p-4" ref={scrollRef}>
-            <div className="max-w-4xl mx-auto space-y-4">
+        <div className="flex-1 flex flex-col min-h-0">
+          <ScrollArea className="flex-1 p-3 md:p-4" ref={scrollRef}>
+            <div className="w-full max-w-4xl mx-auto space-y-4">
               {messages.map((message) => (
                 <ChatMessage
                   key={message.id}
@@ -192,12 +211,14 @@ export function RAGChatbot() {
               ))}
             </div>
           </ScrollArea>
-          <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+          <div className="shrink-0">
+            <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+          </div>
         </div>
 
-        {/* Sidebar */}
+        {/* Desktop Sidebar */}
         {showSidebar && (
-          <div className="w-80 border-l bg-card">
+          <div className="hidden md:flex w-full md:w-80 lg:w-96 border-l bg-card flex-col">
             {activePanel === 'documents' ? (
               <DocumentPanel documents={documents} isVisible={true} />
             ) : (
@@ -207,18 +228,18 @@ export function RAGChatbot() {
         )}
       </div>
 
-      {/* Mobile Collapsible Panels */}
-      <div className="md:hidden">
-        {showSidebar && (
-          <Card className="m-4 mt-0">
+      {/* Mobile Results Panel - Below Chat */}
+      {showSidebar && (
+        <div className="md:hidden border-t bg-card">
+          <div className="h-80 overflow-hidden">
             {activePanel === 'documents' ? (
               <DocumentPanel documents={documents} isVisible={true} />
             ) : (
               <StudiesChart studies={studies} isVisible={true} />
             )}
-          </Card>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

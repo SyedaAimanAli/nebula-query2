@@ -19,15 +19,15 @@ export function DocumentPanel({ documents, isVisible }: DocumentPanelProps) {
   if (!isVisible) return null;
 
   return (
-    <Card className="h-full">
-      <CardHeader className="pb-3">
+    <Card className="h-full flex flex-col">
+      <CardHeader className="pb-3 shrink-0">
         <CardTitle className="flex items-center gap-2 text-lg">
           <FileText className="h-5 w-5" />
           Retrieved Documents
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
-        <ScrollArea className="h-[calc(100vh-12rem)]">
+      <CardContent className="p-0 flex-1 overflow-hidden">
+        <ScrollArea className="h-full">
           <div className="space-y-3 p-4 pt-0">
             {documents.length === 0 ? (
               <p className="text-muted-foreground text-center py-8">
