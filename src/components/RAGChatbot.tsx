@@ -150,7 +150,10 @@ export function RAGChatbot() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setActivePanel('documents')}
+              onClick={() => {
+                setActivePanel('documents');
+                setShowSidebar(true);
+              }}
               className={`${activePanel === 'documents' ? 'bg-primary text-primary-foreground' : ''} hidden md:flex`}
             >
               <FileText className="h-4 w-4 mr-1" />
@@ -159,7 +162,10 @@ export function RAGChatbot() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => setActivePanel('chart')}
+              onClick={() => {
+                setActivePanel('chart');
+                setShowSidebar(true);
+              }}
               className={`${activePanel === 'chart' ? 'bg-primary text-primary-foreground' : ''} hidden md:flex`}
             >
               <BarChart3 className="h-4 w-4 mr-1" />
@@ -170,7 +176,10 @@ export function RAGChatbot() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setActivePanel('documents')}
+                onClick={() => {
+                  setActivePanel('documents');
+                  setShowSidebar(true);
+                }}
                 className={activePanel === 'documents' ? 'bg-primary text-primary-foreground' : ''}
               >
                 <FileText className="h-4 w-4" />
@@ -178,7 +187,10 @@ export function RAGChatbot() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setActivePanel('chart')}
+                onClick={() => {
+                  setActivePanel('chart');
+                  setShowSidebar(true);
+                }}
                 className={activePanel === 'chart' ? 'bg-primary text-primary-foreground' : ''}
               >
                 <BarChart3 className="h-4 w-4" />
